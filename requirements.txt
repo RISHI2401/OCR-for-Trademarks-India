@@ -1,0 +1,10 @@
+pdf2image
+Pillow
+pytesseract
+pandas
+requests
+tqdm
+python-dotenv
+pytest
+pypdf2
+matplotlib

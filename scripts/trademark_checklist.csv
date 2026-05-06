@@ -1,0 +1,17 @@
+Feature,Expected Type/Format,Validation Rules,Severity,Remarks,Keep_Flag
+journal_no,int (constant per file),Must match journal number; not null,Critical,If mismatch → wrong source file,False
+registration_date,DD/MM/YYYY,Valid date; not future date,Critical,Same for all entries in same journal,False
+nice_classes,int (1–45),Must be between 1–45 or 99; not null,High,NICE classification check,False
+trademark_text,string,Not empty; remove newlines; must contain alphabets,High,Consistency check only,True
+trademark_text_devanagari,Unicode string,Valid Unicode,Medium,Check for Devanagari characters,False
+international_registration_no,float/int,Optional; if present numeric (6–10 digits),Low,Madrid Protocol marks only,False
+image_url,string (path/url),Starts with output/ or http; valid image extension,High,Check if image exists,False
+application_number,int (unique),Unique; 6–8 digits; not null,Critical,Duplicates = parsing issue,True
+filing_date,DD/MM/YYYY,Valid; ≤ registration_date; ≥ 1990,High,OCR/parse error if invalid,True
+owner_name,string,No numbers; length 3–80; not empty,High,Ensure human-readable; no placeholders,False
+owner_address,string,Contains alphanumeric & commas; len > 15,Low,May check city/state presence,False
+used_since,DD/MM/YYYY or empty,Optional; valid; ≤ filing_date,Medium,Flag if used_since > filing_date,False
+status,Enum,"Must be one of {pending, registered, refused, withdrawn}",High,Case-insensitive,True
+registration_city,Enum,Must match known list of cities,High,Fuzzy match allowed,True
+goods_services_description,string,Not empty,High,Extraction completeness,True
+business_type_category,Enum,Either goods or services (lowercase),Medium,Derived from NICE class,True
